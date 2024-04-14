@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++ File Handling Examples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+
+        .code {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .output {
+            background-color: #e6e6e6;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <center><h1>File Handling </h1></center>
+
+    <div class="code">
+        <h2>1. Create a new text file and write some text into it:</h2>
+        <pre>
+            <code>
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+
+int main() {
+    std::ofstream outfile("output.txt");
+
+    if (outfile.is_open()) {
+        outfile &lt;&lt; "This is some text written into the file.\n";
+        outfile &lt;&lt; "Hello, World!\n";
+
+        outfile.close();
+        std::cout &lt;&lt; "Text has been written to the file successfully.\n";
+    } else {
+        std::cerr &lt;&lt; "Error: Unable to open the file.\n";
+        return 1; 
+    }
+
+    return 0;
+}
+            </code>
+        </pre>
+    </div>
+
+    <div class="output">
+        <h2>Output:</h2>
+        <pre>
+            <code>
+Text has been written to the file successfully.
+File output:
+This is some text written into the file.
+Hello, World!
+            </code>
+        </pre>
+    </div>
+
+    <div class="code">
+        <h2>2. Open an existing text file and display its contents on the console:</h2>
+        <pre>
+            <code>
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+
+int main() {
+    std::string filename = "example.txt"; 
+    std::ifstream inputFile(filename); 
+
+    if (inputFile.is_open()) { 
+        std::string line;
+        std::cout &lt;&lt; "Content of " &lt;&lt; filename &lt;&lt; ":\n";
+        while (getline(inputFile, line)) { 
+            std::cout &lt;&lt; line &lt;&lt; std::endl; 
+        }
+        inputFile.close(); 
+    } else {
+        std::cerr &lt;&lt; "Error opening file: " &lt;&lt; filename &lt;&lt; std::endl; 
+        return 1; 
+    }
+
+    return 0; 
+}
+            </code>
+        </pre>
+    </div>
+
+    <div class="output">
+        <h2>Content of example.txt:</h2>
+        <pre>
+            <code>
+Hello, world!
+This is an example file.
+            </code>
+        </pre>
+    </div>
+
+    <!-- Repeat the same structure for the rest of the code snippets and their outputs -->
+
+    <div class="code">
+        <h2>3. Count the number of lines in a text file:</h2>
+        <pre>
+            <code>
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+
+int main() {
+    std::string filename;
+    std::cout &lt;&lt; "Enter the filename: ";
+    std::cin &gt;&gt; filename;
+
+    std::ifstream inputFile(filename); 
+
+    if (!inputFile.is_open()) { 
+        std::cerr &lt;&lt; "Error opening file: " &lt;&lt; filename &lt;&lt; std::endl; 
+        return 1; 
+    }
+
+    int lineCount = 0;
+    std::string line;
+    while (getline(inputFile, line)) { 
+        lineCount++; 
+    }
+
+    inputFile.close(); 
+
+    std::cout &lt;&lt; "Number of lines in " &lt;&lt; filename &lt;&lt; ": " &lt;&lt; lineCount &lt;&lt; std::endl;
+
+    return 0; 
+}
+            </code>
+        </pre>
+    </div>
+
+    <div class="output">
+        <h2>Output:</h2>
+        <pre>
+            <code>
+Hello
+World
+How are you?
+I am fine.
+
+Number of lines in example.txt: 5
+            </code>
+        </pre>
+    </div>
+
+    <div class="code">
+        <h2>4. Count the number of words in a text file:</h2>
+        <pre>
+            <code>
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+#include &lt;sstream&gt;
+
+int main() {
+    std::string filename;
+    std::cout &lt;&lt; "Enter the filename: ";
+    std::cin &gt;&gt; filename;
+
+    std::ifstream inputFile(filename); 
+
+    if (!inputFile.is_open()) { 
+        std::cerr &lt;&lt; "Error opening file: " &lt;&lt; filename &lt;&lt; std::endl; 
+        return 1; 
+    }
+
+    std::string word;
+    int wordCount = 0;
+
+    while (inputFile &gt;&gt; word) {
+        wordCount++; 
+    }
+
+    inputFile.close(); 
+
+    std::cout &lt;&lt; "Number of words in " &lt;&lt; filename &lt;&lt; ": " &lt;&lt; wordCount &lt;&lt; std::endl;
+
+    return 0; 
+}
+            </code>
+        </pre>
+    </div>
+
+    <div class="output">
+        <h2>Output:</h2>
+        <pre>
+            <code>
+This is a sample text file.
+It contains several words for testing.
+Enter the filename: example.txt
+Number of words in example.txt: 9
+            </code>
+        </pre>
+    </div>
+
+    <div class="code">
+        <h2>5. Copy the contents of one text file to another:</h2>
+        <pre>
+            <code>
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+
+int main() {
+    std::string sourceFilename, destinationFilename;
+
+    std::cout &lt;&lt; "Enter source filename: ";
+    std::cin &gt;&gt; sourceFilename;
+
+    std::cout &lt;&lt; "Enter destination filename: ";
+    std::cin &gt;&gt; destinationFilename;
+
+    std::ifstream sourceFile(sourceFilename); 
+
+    if (!sourceFile.is_open()) {
+        std::cerr &lt;&lt; "Error opening source file: " &lt;&lt; sourceFilename &lt;&lt; std::endl;
+        return 1; 
+    }
+
+    std::ofstream destinationFile(destinationFilename); 
+
+    if (!destinationFile.is_open()) {
+        std::cerr &lt;&lt; "Error opening destination file: " &lt;&lt; destinationFilename &lt;&lt; std::endl;
+        return 1; 
+    }
+
+    std::string line;
+
+    while (getline(sourceFile, line)) {
+        destinationFile &lt;&lt; line &lt;&lt; std::endl;
+    }
+
+    sourceFile.close();
+    destinationFile.close();
+
+    std::cout &lt;&lt; "Content copied from " &lt;&lt; sourceFilename &lt;&lt; " to " &lt;&lt; destinationFilename &lt;&lt; " successfully." &lt;&lt; std::endl;
+
+    return 0; 
+}
+            </code>
+        </pre>
+    </div>
+
+    <div class="output">
+        <h2>Output:</h2>
+        <pre>
+            <code>
+This is line 1.
+This is line 2.
+This is line 3.
+
+Enter source filename: source.txt
+Enter destination filename: destination.txt
+Content copied from source.txt to destination.txt successfully.
+
+This is line 1.
+This is line 2.
+This is line 3.
+            </code>
+        </pre>
+    </div>
+
+    <div class="code">
+        <h2>6. Find and replace a specific word in a text file:</h2>
+        <pre>
+            <code>
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+
+int main() {
+    std::string filename, searchWord, replaceWord;
+
+    std::cout &lt;&lt; "Enter filename: ";
+    std::cin &gt;&gt; filename;
+
+    std::cout &lt;&lt; "Enter word to search for: ";
+    std::cin &gt;&gt; searchWord;
+
+    std::cout &lt;&lt; "Enter word to replace with: ";
+    std::cin &gt;&gt; replaceWord;
+
+    std::ifstream inputFile(filename); 
+
+    if (!inputFile.is_open()) {
+        std::cerr &lt;&lt; "Error opening file: " &lt;&lt; filename &lt;&lt; std::endl;
+        return 1; 
+    }
+
+    std::string line;
+    std::ofstream tempFile("temp.txt"); 
+
+    if (!tempFile.is_open()) {
+        std::cerr &lt;&lt; "Error creating temporary file." &lt;&lt; std::endl;
+        return 1; 
+    }
+
+    while (getline(inputFile, line)) {
+        size_t pos = line.find(searchWord); 
+
+        while (pos != std::string::npos) {
+            line.replace(pos, searchWord.length(), replaceWord);
+            pos = line.find(searchWord, pos + replaceWord.length()); 
+        }
+
+        tempFile &lt;&lt; line &lt;&lt; std::endl;
+    }
+
+    inputFile.close();
+    tempFile.close();
+
+    if (remove(filename.c_str()) != 0) {
+        std::cerr &lt;&lt; "Error deleting original file: " &lt;&lt; filename &lt;&lt; std::endl;
+        return 1; 
+    }
+
+    if (rename("temp.txt", filename.c_str()) != 0) {
+        std::cerr &lt;&lt; "Error renaming temporary file." &lt;&lt; std::endl;
+        return 1; 
+    }
+
+    std::cout &lt;&lt; "Word '" &lt;&lt; searchWord &lt;&lt; "' replaced with '" &lt;&lt; replaceWord &lt;&lt; "' in " &lt;&lt; filename &lt;&lt; " successfully." &lt;&lt; std::endl;
+
+    return 0; 
+}
+            </code>
+        </pre>
+    </div>
+
+    <div class="output">
+        <h2>Output:</h2>
+        <pre>
+            <code>
+This is a test file.
+It contains the word 'search' multiple times.
+We will replace 'search' with 'replace'.
+
+Enter filename: example.txt
+Enter word to search for: search
+Enter word to replace with: replace
+Word 'search' replaced with 'replace' in example.txt successfully.
+
+This is a test file.
+It contains the word 'replace' multiple times.
+We will replace 'replace' with 'replace'.
+            </code>
+        </pre>
+    </div>
+
+    <div class="code">
+        <h2>7. Append new data to an existing text file:</h2>
+        <pre>
+            <code>
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+
+int main() {
+    std::string filename, newData;
+
+    std::cout &lt;&lt; "Enter filename: ";
+    std::cin &gt;&gt; filename;
+
+    std::ofstream outputFile(filename, std::ios::app); 
+
+    if (!outputFile.is_open()) {
+        std::cerr &lt;&lt; "Error opening file: " &lt;&lt; filename &lt;&lt; std::endl;
+        return 1; 
+    }
+
+    std::cout &lt;&lt; "Enter data to append: ";
+    std::cin.ignore(); 
+    std::getline(std::cin, newData);
+
+    outputFile &lt;&lt; newData &lt;&lt; std::endl;
+
+    outputFile.close();
+
+    std::cout &lt;&lt; "Data appended to " &lt;&lt; filename &lt;&lt; " successfully." &lt;&lt; std::endl;
+
+    return 0; 
+}
+            </code>
+        </pre>
+    </div>
+
+    <div class="output">
+        <h2>Output:</h2>
+        <pre>
+            <code>
+Enter filename: example.txt
+Enter data to append: This is new data to append.
+Data appended to example.txt successfully.
+
+This is existing content in the file.
+This is new data to append.
+            </code>
+        </pre>
+    </div>
+
+    <div class="code">
+        <h2>8. Sort the lines of a text file in alphabetical order:</h2>
+        <pre>
+            <code>
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+int main() {
+    std::string filename;
+    std::vector&lt;std::string&gt; lines;
+
+    std::cout &lt;&lt; "Enter filename: ";
+    std::cin &gt;&gt; filename;
+
+    std::ifstream inputFile(filename);
+
+    if (!inputFile.is_open()) {
+        std::cerr &lt;&lt; "Error opening file: " &lt;&lt; filename &lt;&lt; std::endl;
+        return 1; 
+    }
+
+    std::string line;
+    while (std::getline(inputFile, line)) {
+        lines.push_back(line);
+    }
+
+    inputFile.close();
+
+    std::sort(lines.begin(), lines.end());
+
+    std::ofstream outputFile(filename);
+
+    if (!outputFile.is_open()) {
+        std::cerr &lt;&lt; "Error opening file for writing: " &lt;&lt; filename &lt;&lt; std::endl;
+        return 1; 
+    }
+
+    for (const auto&amp; sortedLine : lines) {
+        outputFile &lt;&lt; sortedLine &lt;&lt; std::endl;
+    }
+
+    outputFile.close();
+
+    std::cout &lt;&lt; "Lines sorted alphabetically in " &lt;&lt; filename &lt;&lt; " successfully." &lt;&lt; std::endl;
+
+    return 0; 
+}
+            </code>
+        </pre>
+    </div>
+
+    <div class="output">
+        <h2>Output:</h2>
+        <pre>
+            <code>
+zebra
+apple
+banana
+
+Enter filename: example.txt
+Lines sorted alphabetically in example.txt successfully.
+
+apple
+banana
+zebra
+            </code>
+        </pre>
+    </div>
+
+    <div class="code">
+        <h2>9. Merge multiple text files into a single file:</h2>
+        <pre>
+            <code>
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+
+void mergeFiles(const std::vector&lt;std::string&gt;&amp; inputFiles, const std::string&amp; outputFile) {
+    std::ofstream outputStream(outputFile);
+
+    if (!outputStream.is_open()) {
+        std::cerr &lt;&lt; "Error opening output file: " &lt;&lt; outputFile &lt;&lt; std::endl;
+        return;
+    }
+
+    for (const auto&amp; inputFile : inputFiles) {
+        std::ifstream inputStream(inputFile);
+
+        if (!inputStream.is_open()) {
+            std::cerr &lt;&lt; "Error opening input file: " &lt;&lt; inputFile &lt;&lt; std::endl;
+            continue;
+        }
+
+        std::string line;
+        while (std::getline(inputStream, line)) {
+            outputStream &lt;&lt; line &lt;&lt; std::endl;
+        }
+
+        inputStream.close();
+    }
+
+    outputStream.close();
+}
+
+int main() {
+    std::vector&lt;std::string&gt; inputFiles;
+    std::string outputFile, filename;
+    char choice;
+
+    do {
+        std::cout &lt;&lt; "Enter filename to merge: ";
+        std::cin &gt;&gt; filename;
+        inputFiles.push_back(filename);
+
+        std::cout &lt;&lt; "Do you want to merge another file? (y/n): ";
+        std::cin &gt;&gt; choice;
+    } while (choice == 'y' || choice == 'Y');
+
+    std::cout &lt;&lt; "Enter output filename: ";
+    std::cin &gt;&gt; outputFile;
+
+    mergeFiles(inputFiles, outputFile);
+
+    std::cout &lt;&lt; "Files merged successfully!" &lt;&lt; std::endl;
+
+    return 0;
+}
+            </code>
+        </pre>
+    </div>
+
+    <div class="output">
+        <h2>Output:</h2>
+        <pre>
+            <code>
+Enter filename to merge: input1.txt
+Do you want to merge another file? (y/n): y
+Enter filename to merge: input2.txt
+Do you want to merge another file? (y/n): n
+Enter output filename: output.txt
+Files merged successfully!
+            </code>
+        </pre>
+    </div>
+
+    <div class="code">
+        <h2>10. Split a large text file into smaller files of equal size:</h2>
+        <pre>
+            <code>
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;cmath&gt;
+
+void splitFile(const std::string&amp; inputFile, const std::string&amp; outputPrefix, int chunkSize) {
+    std::ifstream inputStream(inputFile);
+    
+    if (!inputStream.is_open()) {
+        std::cerr &lt;&lt; "Error opening input file: " &lt;&lt; inputFile &lt;&lt; std::endl;
+        return;
+    }
+
+    std::vector&lt;std::ofstream&gt; outputStreams;
+
+    int fileCounter = 0;
+    std::string outputFileName = outputPrefix + std::to_string(fileCounter) + ".txt";
+    outputStreams.emplace_back(outputFileName);
+
+    std::string line;
+    int linesWritten = 0;
+
+    while (std::getline(inputStream, line)) {
+        outputStreams[fileCounter] &lt;&lt; line &lt;&lt; std::endl;
+        linesWritten++;
+
+        if (linesWritten == chunkSize) {
+            linesWritten = 0;
+            fileCounter++;
+            outputStreams[fileCounter].close();
+            outputFileName = outputPrefix + std::to_string(fileCounter) + ".txt";
+            outputStreams.emplace_back(outputFileName);
+        }
+    }
+
+    inputStream.close();
+}
+
+int main() {
+    std::string inputFile, outputPrefix;
+    int chunkSize;
+
+    std::cout &lt;&lt; "Enter the name of the large input file: ";
+    std::cin &gt;&gt; inputFile;
+
+    std::cout &lt;&lt; "Enter the prefix for the output files: ";
+    std::cin &gt;&gt; outputPrefix;
+
+    std::cout &lt;&lt; "Enter the number of lines for each smaller file: ";
+    std::cin &gt;&gt; chunkSize;
+
+    splitFile(inputFile, outputPrefix, chunkSize);
+
+    std::cout &lt;&lt; "Large file has been split into smaller files successfully." &lt;&lt; std::endl;
+
+    return 0;
+}
+            </code>
+        </pre>
+    </div>
+
+    <div class="output">
+        <h2>Output:</h2>
+        <pre>
+            <code>
+Enter the name of the large input file: largefile.txt
+Enter the prefix for the output files: output_
+Enter the number of lines for each smaller file: 1000
+Large file has been split into smaller files successfully.
+            </code>
+        </pre>
+    </div>
+    <div class="code">
+        <h2>11. Search for a specific string in a text file</h2>
+        <pre><code>
+    #include &lt;iostream&gt;
+    #include &lt;fstream&gt;
+    #include &lt;string&gt;
+    
+    int main() {
+        // Main code here...
+    }</code></pre>
+        <div class="output">
+            <strong>Output:</strong>
+            <pre>Enter filename: example.txt
+    Enter search string: search
+    String 'search' found in line 3: This is a line containing the word 'search'.</pre>
+        </div>
+    </div>
+    
+    <div class="code">
+        <h2>12. Encrypt the contents of a text file using a simple encryption algorithm</h2>
+        <pre><code>
+            #include <iostream>
+                #include <fstream>
+                #include <string>
+                
+                // Function to encrypt a string using a Caesar cipher
+                std::string encrypt(const std::string& text, int shift) {
+                    std::string encryptedText = "";
+                
+                    for (char c : text) {
+                        if (isalpha(c)) {
+                            char shiftedChar = c + shift;
+                
+                            // Wrap around for lowercase letters
+                            if (islower(c)) {
+                                if (shiftedChar > 'z') {
+                                    shiftedChar = 'a' + (shiftedChar - 'z' - 1);
+                                } else if (shiftedChar < 'a') {
+                                    shiftedChar = 'z' - ('a' - shiftedChar - 1);
+                                }
+                            }
+                            // Wrap around for uppercase letters
+                            else {
+                                if (shiftedChar > 'Z') {
+                                    shiftedChar = 'A' + (shiftedChar - 'Z' - 1);
+                                } else if (shiftedChar < 'A') {
+                                    shiftedChar = 'Z' - ('A' - shiftedChar - 1);
+                                }
+                            }
+                            encryptedText += shiftedChar;
+                        } else {
+                            encryptedText += c; // Preserve non-alphabetic characters
+                        }
+                    }
+                
+                    return encryptedText;
+                }
+    
+    int main() {
+        std::string filename, encryptedFilename;
+            int shift;
+        
+            // Get filename from user
+            std::cout << "Enter filename: ";
+            std::cin >> filename;
+        
+            // Get encryption shift from user
+            std::cout << "Enter encryption shift (positive integer): ";
+            std::cin >> shift;
+        
+            // Get encrypted filename
+            encryptedFilename = "encrypted_" + filename;
+        
+            std::ifstream inputFile(filename); // Open file for reading
+            std::ofstream outputFile(encryptedFilename); // Open file for writing encrypted content
+        
+            if (!inputFile.is_open()) {
+                std::cerr << "Error opening input file: " << filename << std::endl;
+                return 1; // Return non-zero exit code indicating failure
+            }
+        
+            if (!outputFile.is_open()) {
+                std::cerr << "Error opening output file: " << encryptedFilename << std::endl;
+                return 1; // Return non-zero exit code indicating failure
+            }
+        
+            std::string line;
+        
+            // Read file line by line, encrypt each line, and write encrypted content to output file
+            while (getline(inputFile, line)) {
+                std::string encryptedLine = encrypt(line, shift);
+                outputFile << encryptedLine << std::endl;
+            }
+        
+            std::cout << "File encrypted successfully. Encrypted content saved in: " << encryptedFilename << std::endl;
+        
+            // Close files
+            inputFile.close();
+            outputFile.close();
+        
+            return 0; // Return zero exit code indicating success
+    }</code></pre>
+        <div class="output">
+            <strong>Output:</strong>
+            <pre>Enter filename: example.txt
+    Enter encryption shift (positive integer): 3
+    File encrypted successfully. Encrypted content saved in: encrypted_example.txt</pre>
+        </div>
+    </div>
+    
+    <div class="code">
+        <h2>13. Decrypt the contents of a text file encrypted using the above algorithm</h2>
+        <pre><code>
+            #include <iostream>
+                #include <fstream>
+                #include <string>
+                
+                // Function to decrypt a single character using Caesar Cipher
+                char decryptChar(char ch, int shift) {
+                    if (isalpha(ch)) {
+                        char base = islower(ch) ? 'a' : 'A';
+                        return ((ch - base - shift + 26) % 26) + base; // Add 26 to handle negative values after subtraction
+                    }
+                    return ch;
+                }
+                
+                // Function to decrypt a string using Caesar Cipher
+                std::string decryptString(const std::string& input, int shift) {
+                    std::string decrypted;
+                    for (char ch : input) {
+                        decrypted += decryptChar(ch, shift);
+                    }
+                    return decrypted;
+                }
+    int main() {
+        std::string inputFilename, outputFilename;
+        int shift;
+    
+        // Get input filename, output filename, and decryption shift from user
+        std::cout << "Enter the name of the encrypted input file: ";
+        std::cin >> inputFilename;
+        std::cout << "Enter the name of the output file for decrypted content: ";
+        std::cin >> outputFilename;
+        std::cout << "Enter the decryption shift (integer): ";
+        std::cin >> shift;
+    
+        // Open input file for reading
+        std::ifstream inputFile(inputFilename);
+        if (!inputFile.is_open()) {
+            std::cerr << "Error opening input file: " << inputFilename << std::endl;
+            return 1;
+        }
+    
+        // Open output file for writing decrypted content
+        std::ofstream outputFile(outputFilename);
+        if (!outputFile.is_open()) {
+            std::cerr << "Error opening output file: " << outputFilename << std::endl;
+            inputFile.close();
+            return 1;
+        }
+    
+        // Read encrypted content from input file, decrypt it, and write decrypted content to output file
+        std::string line;
+        while (std::getline(inputFile, line)) {
+            std::string decryptedLine = decryptString(line, shift);
+            outputFile << decryptedLine << std::endl;
+        }
+    
+        // Close input and output files
+        inputFile.close();
+        outputFile.close();
+    
+        std::cout << "Decryption completed. Decrypted content saved in: " << outputFilename << std::endl;
+    
+        return 0;
+        
+    }</code></pre>
+        <div class="output">
+            <strong>Output:</strong>
+            <pre>Enter the filename of the encrypted file: encrypted_file.txt
+    Enter the filename for the decrypted output: decrypted_file.txt
+    Enter the decryption shift: 1
+    
+    Decryption completed successfully. Decrypted content saved in: decrypted_file.txt</pre>
+        </div>
+    </div>
+    
+    <div class="code">
+        <h2>14. Read a CSV file and display its contents in tabular form</h2>
+        <pre><code>
+            #include <iostream>
+                #include <fstream>
+                #include <sstream>
+                #include <vector>
+                #include <string>
+                
+                // Function to split a string into tokens based on a delimiter
+                std::vector<std::string> split(const std::string& s, char delimiter) {
+                    std::vector<std::string> tokens;
+                    std::string token;
+                    std::istringstream tokenStream(s);
+                    while (std::getline(tokenStream, token, delimiter)) {
+                        tokens.push_back(token);
+                    }
+                    return tokens;
+                }
+    
+    int main() {
+        std::string filename;
+            
+            // Get filename from user
+            std::cout << "Enter filename: ";
+            std::cin >> filename;
+        
+            // Open CSV file
+            std::ifstream file(filename);
+        
+            if (!file.is_open()) {
+                std::cerr << "Error opening file: " << filename << std::endl;
+                return 1;
+            }
+        
+            std::string line;
+        
+            // Read and display header
+            std::getline(file, line);
+            std::vector<std::string> headers = split(line, ',');
+            for (const auto& header : headers) {
+                std::cout << header << "\t";
+            }
+            std::cout << std::endl;
+        
+            // Read and display data
+            while (std::getline(file, line)) {
+                std::vector<::string> data = split(line, ',');
+                for (const auto& item : data) {
+                    std::cout << item << "\t";
+                }
+                std::cout << std::endl;
+            }
+        
+            file.close();
+        
+            return 0;
+    }</code></pre>
+        <div class="output">
+            <strong>Output:</strong>
+            <pre>Enter filename: example.csv
+    ID  Name  Age
+    1   John  25
+    2   Jane  30
+    3   Alice 28</pre>
+        </div>
+    </div>
+    
+    <div class="code">
+        <h2>15. Calculate the average of numbers stored in a file</h2>
+        <pre><code>
+            #include <iostream>
+                #include <fstream>
+                #include <vector>
+                #include <sstream>
+                #include <iomanip>
+    
+    int main() {
+        std::string filename;
+            double number, sum = 0.0;
+            int count = 0;
+        
+            // Get the filename from the user
+            std::cout << "Enter the filename: ";
+            std::cin >> filename;
+        
+            // Open the file
+            std::ifstream inputFile(filename);
+        
+            if (!inputFile.is_open()) {
+                std::cerr << "Error opening file: " << filename << std::endl;
+                return 1; // Return non-zero exit code indicating failure
+            }
+        
+            // Read numbers from the file and calculate sum and count
+            while (inputFile >> number) {
+                sum += number;
+                count++;
+            }
+        
+            // Close the file
+            inputFile.close();
+        
+            if (count == 0) {
+                std::cerr << "No numbers found in the file." << std::endl;
+                return 1; // Return non-zero exit code indicating failure
+            }
+        
+            // Calculate the average
+            double average = sum / count;
+        
+            // Display the average
+            std::cout << "Average of numbers in " << filename << " is: " << std::fixed << std::setprecision(2) << average << std::endl;
+        
+            return 0; // Return zero exit code indicating success
+    }</code></pre>
+        <div class="output">
+            <strong>Output:</strong>
+            <pre>10.5
+    20.75
+    15.25
+    
+    Enter the filename: numbers.txt
+    Average of numbers in numbers.txt is: 15.17</pre>
+        </div>
+    </div>
+    
+    <div class="code">
+        <h2>16. Store the information of 10 Students in a binary file</h2>
+        <pre><code>#include <iostream>
+            #include <fstream>
+            #include <string>
+            
+            struct Student {
+                int rollNo;
+                std::string name;
+                float marks;
+                std::string mobileNo;
+            
+                // Function to read student data from input stream
+                void read() {
+                    std::cout << "Enter Roll No: ";
+                    std::cin >> rollNo;
+                    std::cout << "Enter Name: ";
+                    std::cin.ignore();
+                    std::getline(std::cin, name);
+                    std::cout << "Enter Marks: ";
+                    std::cin >> marks;
+                    std::cout << "Enter Mobile No: ";
+                    std::cin.ignore();
+                    std::getline(std::cin, mobileNo);
+                }
+            
+                // Function to display student data
+                void display() {
+                    std::cout << "Roll No: " << rollNo << ", Name: " << name << ", Marks: " << marks << ", Mobile No: " << mobileNo << std::endl;
+                }
+            };
+            
+            void displayMenu() {
+                std::cout << "\n-- Menu --\n"
+                          << "1. Insert Record\n"
+                          << "2. Delete Record\n"
+                          << "3. Update Record\n"
+                          << "4. Search Record\n"
+                          << "5. Clone the file\n"
+                          << "6. Exit\n";
+            }
+            
+            // Function to insert a record into the binary file
+            void insertRecord(std::fstream& file) {
+                Student student;
+                student.read();
+                file.write(reinterpret_cast<char*>(&student), sizeof(Student));
+                std::cout << "Record inserted successfully." << std::endl;
+            }
+            
+            // Function to delete a record from the binary file based on roll number
+            void deleteRecord(std::fstream& file) {
+                int rollNo;
+                std::cout << "\nEnter the Roll No to delete record: ";
+                std::cin >> rollNo;
+            
+                // Create a temporary file to copy records except the one to be deleted
+                std::fstream tempFile("temp.dat", std::ios::binary | std::ios::out);
+            
+                Student student;
+                bool found = false;
+                file.seekg(0, std::ios::beg);
+                while (file.read(reinterpret_cast<char*>(&student), sizeof(Student))) {
+                    if (student.rollNo != rollNo) {
+                        tempFile.write(reinterpret_cast<char*>(&student), sizeof(Student));
+                    } else {
+                        found = true;
+                    }
+                }
+                file.close();
+                tempFile.close();
+            
+                // Remove original file and rename the temporary file
+                remove("students.dat");
+                rename("temp.dat", "students.dat");
+            
+                if (found) {
+                    std::cout << "Record with Roll No " << rollNo << " deleted successfully." << std::endl;
+                } else {
+                    std::cerr << "Record with Roll No " << rollNo << " not found!" << std::endl;
+                }
+            
+                // Reopen original file
+                file.open("students.dat", std::ios::binary | std::ios::in | std::ios::out | std::ios::app);
+            }
+            
+            // Function to update a record in the binary file based on roll number
+            void updateRecord(std::fstream& file) {
+                int rollNo;
+                std::cout << "\nEnter the Roll No to update record: ";
+                std::cin >> rollNo;
+            
+                Student student;
+                bool found = false;
+            
+                file.seekg(0, std::ios::beg);
+                while (file.read(reinterpret_cast<char*>(&student), sizeof(Student))) {
+                    if (student.rollNo == rollNo) {
+                        found = true;
+                        student.read();
+                        file.seekp(-sizeof(Student), std::ios::cur);
+                        file.write(reinterpret_cast<char*>(&student), sizeof(Student));
+                        break;
+                    }
+                }
+            
+                if (found) {
+                    std::cout << "Record updated successfully." << std::endl;
+                } else {
+                    std::cerr << "Record with Roll No " << rollNo << " not found!" << std::endl;
+                }
+            }
+            
+            // Function to search for a record in the binary file based on roll number
+            void searchRecord(std::fstream& file) {
+                int rollNo;
+                std::cout << "\nEnter the Roll No to search record: ";
+                std::cin >> rollNo;
+            
+                Student student;
+                bool found = false;
+            
+                file.seekg(0, std::ios::beg);
+                while (file.read(reinterpret_cast<char*>(&student), sizeof(Student))) {
+                    if (student.rollNo == rollNo) {
+                        found = true;
+                        student.display();
+                        break;
+                    }
+                }
+            
+                if (!found) {
+                    std::cerr << "Record with Roll No " << rollNo << " not found!" << std::endl;
+                }
+            }
+            
+            // Function to clone the binary file
+            void cloneFile(std::fstream& file) {
+                std::fstream cloneFile("students_clone.dat", std::ios::binary | std::ios::out);
+                if (!cloneFile) {
+                    std::cerr << "Error creating clone file!" << std::endl;
+                    return;
+                }
+            
+                Student student;
+                file.seekg(0, std::ios::beg);
+                while (file.read(reinterpret_cast<*>(&student), sizeof(Student))) {
+                    cloneFile.write(reinterpret_cast<char*>(&student), sizeof(Student));
+                }
+            
+                cloneFile.close();
+                std::cout << "File cloned successfully." << std::endl;
+            }
+            
+            struct Student {
+                int rollNo;
+                std::string name;
+                float marks;
+                std::string mobileNo;
+            
+                // Function to read student data from input stream
+                void read() {
+                    std::cout << "Enter Roll No: ";
+                    std::cin >> rollNo;
+                    std::cout << "Enter Name: ";
+                    std::cin.ignore();
+                    std::getline(std::cin, name);
+                    std::cout << "Enter Marks: ";
+                    std::cin >> marks;
+                    std::cout << "Enter Mobile No: ";
+                    std::cin.ignore();
+                    std::getline(std::cin, mobileNo);
+                }
+            
+                // Function to display student data
+                void display() {
+                    std::cout << "Roll No: " << rollNo << ", Name: " << name << ", Marks: " << marks << ", Mobile No: " << mobileNo << std::endl;
+                }
+            };
+            
+            void displayMenu() {
+                std::cout << "\n-- Menu --\n"
+                          << "1. Insert Record\n"
+                          << "2. Delete Record\n"
+                          << "3. Update Record\n"
+                          << "4. Search Record\n"
+                          << "5. Clone the file\n"
+                          << "6. Exit\n";
+            }
+            
+            // Function to insert a record into the binary file
+            void insertRecord(std::fstream& file) {
+                Student student;
+                student.read();
+                file.write(reinterpret_cast<char*>(&student), sizeof(Student));
+                std::cout << "Record inserted successfully." << std::endl;
+            }
+            
+            // Function to delete a record from the binary file based on roll number
+            void deleteRecord(std::fstream& file) {
+                int rollNo;
+                std::cout << "\nEnter the Roll No to delete record: ";
+                std::cin >> rollNo;
+            
+                // Create a temporary file to copy records except the one to be deleted
+                std::fstream tempFile("temp.dat", std::ios::binary | std::ios::out);
+            
+                Student student;
+                bool found = false;
+                file.seekg(0, std::ios::beg);
+                while (file.read(reinterpret_cast<char*>(&student), sizeof(Student))) {
+                    if (student.rollNo != rollNo) {
+                        tempFile.write(reinterpret_cast<char*>(&student), sizeof(Student));
+                    } else {
+                        found = true;
+                    }
+                }
+                file.close();
+                tempFile.close();
+            
+                // Remove original file and rename the temporary file
+                remove("students.dat");
+                rename("temp.dat", "students.dat");
+            
+                if (found) {
+                    std::cout << "Record with Roll No " << rollNo << " deleted successfully." << std::endl;
+                } else {
+                    std::cerr << "Record with Roll No " << rollNo << " not found!" << std::endl;
+                }
+            
+                // Reopen original file
+                file.open("students.dat", std::ios::binary | std::ios::in | std::ios::out | std::ios::app);
+            }
+            
+            // Function to update a record in the binary file based on roll number
+            void updateRecord(std::fstream& file) {
+                int rollNo;
+                std::cout << "\nEnter the Roll No to update record: ";
+                std::cin >> rollNo;
+            
+                Student student;
+                bool found = false;
+            
+                file.seekg(0, std::ios::beg);
+                while (file.read(reinterpret_cast<char*>(&student), sizeof(Student))) {
+                    if (student.rollNo == rollNo) {
+                        found = true;
+                        student.read();
+                        file.seekp(-sizeof(Student), std::ios::cur);
+                        file.write(reinterpret_cast<char*>(&student), sizeof(Student));
+                        break;
+                    }
+                }
+            
+                if (found) {
+                    std::cout << "Record updated successfully." << std::endl;
+                } else {
+                    std::cerr << "Record with Roll No " << rollNo << " not found!" << std::endl;
+                }
+            }
+            
+            // Function to search for a record in the binary file based on roll number
+            void searchRecord(std::fstream& file) {
+                int rollNo;
+                std::cout << "\nEnter the Roll No to search record: ";
+                std::cin >> rollNo;
+            
+                Student student;
+                bool found = false;
+            
+                file.seekg(0, std::ios::beg);
+                while (file.read(reinterpret_cast<char*>(&student), sizeof(Student))) {
+                    if (student.rollNo == rollNo) {
+                        found = true;
+                        student.display();
+                        break;
+                    }
+                }
+            
+                if (!found) {
+                    std::cerr << "Record with Roll No " << rollNo << " not found!" << std::endl;
+                }
+            }
+            
+            // Function to clone the binary file
+            void cloneFile(std::fstream& file) {
+                std::fstream cloneFile("students_clone.dat", std::ios::binary | std::ios::out);
+                if (!cloneFile) {
+                    std::cerr << "Error creating clone file!" << std::endl;
+                    return;
+                }
+            
+                Student student;
+                file.seekg(0, std::ios::beg);
+                while (file.read(reinterpret_cast<*>(&student), sizeof(Student))) {
+                    cloneFile.write(reinterpret_cast<char*>(&student), sizeof(Student));
+                }
+            
+                cloneFile.close();
+                std::cout << "File cloned successfully." << std::endl;
+            }
+            
+            int main() {
+                std::fstream file("students.dat", std::ios::binary | std::ios::in | std::ios::out | std::ios::app);
+            
+                if (!file) {
+                    std::cerr << "Error opening file!" << std::endl;
+                    return 1;
+                }
+            
+                int choice;
+                do {
+                    displayMenu();
+                    std::cout << "Enter your choice: ";
+                    std::cin >> choice;
+            
+                    switch (choice) {
+                        case 1:
+                            insertRecord(file);
+                            break;
+                        case 2:
+                            deleteRecord(file);
+                            break;
+                        case 3:
+                            updateRecord(file);
+                            break;
+                        case 4:
+                            searchRecord(file);
+                            break;
+                        case 5:
+                            cloneFile(file);
+                            break;
+                        case 6:
+                            std::cout << "Exiting program." << std::endl;
+                            break;
+                        default:
+                            std::cerr << "Invalid choice! Please try again." << std::endl;
+                    }
+                } while (choice != 6);
+            
+                file.close();
+                return 0;
+            }</code></pre>
+        <div class="output">
+            <strong>Output:</strong>
+            <pre>-- Menu --
+    1. Insert Record
+    2. Delete Record
+    3. Update Record
+    4. Search Record
+    5. Clone the file
+    6. Exit
+    Enter your choice: 1
+    
+    Enter student details:
+    Roll No: 101
+    Name: John Doe
+    Marks: 85.5
+    Mobile No: 1234567890
+    Record inserted successfully.
+    
+    -- Menu --
+    1. Insert Record
+    2. Delete Record
+    3. Update Record
+    4. Search Record
+    5. Clone the file
+    6. Exit
+    Enter your choice: 4
+    
+    Enter the Roll No to search record: 101
+    
+    Record found:
+    Roll No: 101, Name: John Doe, Marks: 85.5, Mobile No: 1234567890
+    
+    -- Menu --
+    1. Insert Record
+    2. Delete Record
+    3. Update Record
+    4. Search Record
+    5. Clone the file
+    6. Exit
+    Enter your choice: 3
+    
+    Enter the Roll No to update record: 101
+    
+    Enter new details:
+    Name: John Smith
+    Marks: 90
+    Mobile No: 9876543210
+    Record updated successfully.
+    
+    -- Menu --
+    1. Insert Record
+    2. Delete Record
+    3. Update Record
+    4. Search Record
+    5. Clone the file
+    6. Exit
+    Enter your choice: 5
+    
+    File cloned successfully.
+    
+    -- Menu --
+    1. Insert Record
+    2. Delete Record
+    3. Update Record
+    4. Search Record
+    5. Clone the file
+    6. Exit
+    Enter your choice: 6
+    
+    Exiting program.</pre>
+        </div>
+    </div>
+    
+</body>
+</html>

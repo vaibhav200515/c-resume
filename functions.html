@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++ Functions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .function {
+            background-color: #f4f4f4;
+            border-left: 6px solid #3c8dbc;
+            padding: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <center><h1>Functions</h1></center>
+
+    <!-- Function 1 -->
+    <div class="function">
+        <h2>Function 1: Find the smallest number among three numbers</h2>
+        <pre>#include<iostream>
+            using namespace std;
+            int smlth(int a,int b,int c){
+                if (a< b){
+                    if(a< c){
+                        return a;
+                    }
+                    else{
+                        return c;
+                    }
+                }
+                else if(b< c){
+                    return b;
+                }
+                else if (a==b && a==c){
+                   return 0;
+                }
+                else{
+                    return c;
+                }
+            }
+            int main(){
+                int n1,n2,n3;
+                cout<<"Enter the three numbers A,B and C: ";
+                cin>>n1>>n2>>n3;
+                cout<<"Smallest among three numbers : "<< smlth(n1,n2,n3); 
+                return 0;}
+            
+            
+        </pre>
+        <p>Output:<br>
+            Enter the three numbers A, B, and C: 10 13 15<br>
+            Smallest among three numbers: 10
+        </p>
+    </div>
+
+    <!-- Function 2 -->
+    <div class="function">
+        <h2>Function 2: Compute the average of three numbers</h2>
+        <pre>#include<iostream>
+            using namespace std;
+            float avg(int a,int b,int c){
+                return ((a+b+c)/3.0);
+                }
+            int main(){
+                int n1,n2,n3;
+                cout<<"Enter the three numbers A,B and C: ";
+                cin>>n1>>n2>>n3;
+                cout<<"Average of three numbers : "<< avg(n1,n2,n3); 
+                return 0;}
+            
+            
+        </pre>
+        <p>Output:<br>
+            Enter the three numbers A, B, and C: 131 51 17<br>
+            Average of three numbers: 11.6667
+        </p>
+    </div>
+
+    <!-- Function 3 -->
+    <div class="function">
+        <h2>Function 3: Display the middle character(s) of a string</h2>
+        <pre>#include<iostream>
+            #include<string>
+            using namespace std;
+            string midch(string st){
+                int l=st.length();
+                if((l&1)==1){ 
+                string mi="";  
+                mi+=st[l/2];     
+                return mi;
+                }
+                else{
+                    string mi="";
+                    mi=mi+st[l/2-1]+st[l/2];
+                    return mi; 
+                }
+                }
+            int main(){
+                cout<<"Enter the string : ";
+                string s;
+                cin>>s;
+                cout<<"Middle character of a string : "<< midch(s); 
+                return 0;}
+            
+        </pre>
+        <p>Output:<br>
+            Enter the string: black<br>
+            Middle character(s) of the string: a
+        </p>
+    </div>
+
+    <!-- Function 4 -->
+    <div class="function">
+        <h2>Function 4: Find all twin prime numbers less than 100</h2>
+        <pre>#include<iostream>
+            using namespace std;
+            void twinp(){
+                int tem=1,c=0;
+                for(int i=2;i< 101;i++){
+                    c=0;
+                    for(int j=2;j< i;j++){
+                       if(i%j==0){
+                           c=1;
+                           break;
+                       }
+                    }
+                   if(c==0){
+                     if ((i-tem)==2){
+                        cout<< tem<<","<< i<< endl;
+                    }
+                    tem=i;
+                   }
+                }
+                }
+            int main(){
+                cout<<"Twin prime numbers less than 100 : "<< endl;
+                twinp();
+                return 0;}
+            
+        </pre>
+        <p>Output:<br>
+            Twin prime numbers less than 100:<br>
+            3, 5<br>
+            5, 7<br>
+            11, 13<br>
+            17, 19<br>
+            29, 31<br>
+            41, 43<br>
+            59, 61<br>
+            71, 73
+        </p>
+    </div>
+
+    <!-- Function 5 -->
+    <div class="function">
+        <h2>Function 5: Count the number of digits in an integer with the value 2</h2>
+        <pre>#include<iostream>
+            using namespace std;
+            int countd(int n){
+                int c=0,r;
+                while(n!=0){
+                   r=n%10;
+                   if(r==2){
+                    c++;
+                   }
+                   n/=10;
+                }
+                return c;
+                }
+            int main(){
+                int n;
+                cout<<"Enter the number : ";
+                cin>>n;
+                cout<<"No. of digits with value 2 : "<< countd(n);
+                return 0;}
+        </pre>
+        <p>Output:<br>
+            Enter the number: 122<br>
+            Number of digits with value 2: 2
+        </p>
+    </div>
+
+    <!-- Function 6 -->
+    <div class="function">
+        <h2>Function 6: Check if three integers are consecutive or not</h2>
+        <pre>#include<iostream>
+            using namespace std;
+            int connch(int a,int b,int c){
+              if(abs(a-b)==1 && abs(a-c)==2){
+                  return true;
+              }
+              else if(abs(a-c)==1 && abs(a-b)==2){
+                 return true;
+              }
+              else if(abs(c-b)==1 && abs(c-a)==2){
+                return true;
+              }
+              else if(abs(c-b)==2 && abs(c-a)==1){
+                return true;
+              }
+              else{
+                return false;
+              }
+            }
+            int main(){
+                int n1,n2,n3;
+                cout<<"Enter the three numbers A,B and C: ";
+                cin>>n1>>n2>>n3;
+                cout<<"Consecutive (0:false and 1:True): "<< connch(n1,n2,n3); 
+                return 0;}
+        </pre>
+        <p>Output:<br>
+            Enter the three numbers A, B, and C: 19 17 18<br>
+            Consecutive (0: false and 1: true): 1
+        </p>
+    </div>
+
+    <!-- Function 7 -->
+    <div class="function">
+        <h2>Function 7: Check if all characters in a string are vowels</h2>
+        <pre>#include<iostream>
+            #include<string>
+            using namespace std;
+            int voch(string st){
+               int c=0;
+               for(int i=0;i< st.length();i++){
+                  if(st[i]=='a' || st[i]=='e' || st[i]=='i' || st[i]=='o' || st[i]=='u'){
+                    c=0;
+                  }
+                  else{
+                    c=1;
+                    break;
+                  }
+               }
+               if(c==0){
+                return true;
+               }
+               else{
+                return false;
+               }
+            }
+            int main(){
+                string s;
+                cout<<"Enter the string : ";
+                cin>>s;
+                cout<<"All character of string are vowels (0:false and 1:True): "<< voch(s); 
+                return 0;}
+            
+        </pre>
+        <p>Output:<br>
+            Enter the string: black<br>
+            All characters of the string are vowels (0: false and 1: true): 0
+        </p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inheritance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Inheritance</h1>
+
+    <!-- Program 1: Inheritance -->
+    
+    <h2>1.Write a C++ program to create a class called Animal with a method called makeSound(). Create a derived class called Cat that overrides the makeSound() method to bark.
+    </h2><h3>Source code</h3>
+    <pre>
+        <code>
+            #include&lt;iostream&gt;
+            using namespace std;
+            class animal
+            {
+                public:
+                    void makesound()
+                    {
+                        cout&lt;&lt;"Animal makes sound."&lt;&lt;endl;
+                    }
+            };
+            class cat:public animal
+            {		
+                public:
+                    void makesound()
+                    {
+                        cout&lt;&lt;"Cat barks.";	
+                    }	
+            };
+            int main()
+            {
+                animal a1;
+                cat c1;
+                a1.makesound();
+                c1.makesound();
+            }
+        </code>
+    </pre>
+    <h3>Output:</h3>
+    <pre>
+        Animal makes sound.
+        Cat barks.
+    </pre>
+
+    <!-- Program 2: Inheritance -->
+    <h2>2. Write a C++ program to create a class called Vehicle with a method called drive(). Create a derived class called Car that overrides the drive() method to print "Repairing a car".
+    </h2>
+    <h3>Source code</h3>
+    <pre>
+        <code>
+            #include&lt;iostream&gt;
+            using namespace std;
+            class vehicle
+            {
+                public:
+                    void drive()
+                    {
+                        cout&lt;&lt;"Ready to go for a drive."&lt;&lt;endl;	
+                    }	
+            };
+            class car:public vehicle
+            {
+                public:
+                    void drive()
+                    {
+                        cout&lt;&lt;"Repairing a car.";
+                    }
+            };
+            int main()
+            {
+                vehicle v1;
+                car c1;
+                v1.drive();
+                c1.drive();
+            }
+        </code>
+    </pre>
+    <h3>Output:</h3>
+    <pre>
+        Ready to go for a drive.
+        Repairing a car.
+    </pre>
+
+    <!-- Program 3: Inheritance -->
+<h2>3.Write a C++ program to create a class called Shape with a method called getArea(). Create a derived class called Rectangle that overrides the getArea() method to calculate the area of a rectangle.
+</h2><h3>Source code</h3>
+
+<pre>
+    <code>
+        #include&lt;iostream&gt;
+        using namespace std;
+        class shape
+        {
+            public:
+                float a,b;
+                void getarea()
+                {
+                    cout&lt;&lt;"Enter sides:";
+                    cin&gt;&gt;a&gt;&gt;b;
+                }
+        };
+        class rectangle:public shape
+        {
+            public:
+                void getarea()
+                {
+                    shape::getarea();
+                    float area=a*b;
+                    cout&lt;&lt;"Area of rectangle:"&lt;&lt;area;
+                }
+        };
+        int main()
+        {
+            rectangle r1;
+            r1.getarea();
+        }
+    </code>
+</pre>
+<h3>Output:</h3>
+<pre>
+    Enter sides:12 2
+    Area of rectangle:24
+</pre>
+
+<!-- Program 4: Inheritance -->
+<h2>4.Write a C++ program to create a class called Employee with methods called work() and getSalary(). Create a derived class called HRManager that overrides the work() method and adds a new method called addEmployee().
+</h2><h3>Source code</h3>
+<pre>
+    <code>
+        #include&lt;iostream&gt;
+        using namespace std;
+        class employee
+        {
+            public:
+                char duty[50];
+                char name[20];
+                float salary;
+                void work()
+                {
+                    cout&lt;&lt;"Enter name of the employee:";
+                    cin&gt;&gt;name;
+                    cout&lt;&lt;"Enter work assigned:";
+                    cin&gt;&gt;duty;
+                }
+                void getsalary()
+                {
+                    cout&lt;&lt;"Input salary:";
+                    cin&gt;&gt;salary;
+                }
+        };
+        class HRManager:public employee
+        {
+            public:
+                void work()
+                {
+                    cout&lt;&lt;"Assign work:";
+                    cin&gt;&gt;duty;	
+                }	
+                void addemployee()
+                {
+                    cout&lt;&lt;"Enter name of the employee:";
+                    cin&gt;&gt;name;
+                    getsalary();
+                    work();
+                }
+                void details()
+                {
+                    cout&lt;&lt;"************************************"&lt;&lt;endl;
+                    cout&lt;&lt;"Name:"&lt;&lt;name&lt;&lt;endl;
+                    cout&lt;&lt;"Work:"&lt;&lt;duty&lt;&lt;endl;
+                    cout&lt;&lt;"Salary:"&lt;&lt;salary&lt;&lt;endl;
+                }
+        };
+        int main()
+        {
+            HRManager h1;
+            h1.addemployee();
+            h1.details();
+        }
+    </code>
+</pre>
+<h3>Output:</h3>
+<pre>
+    Enter name of the employee:vaibhav
+    Input salary:50000
+    Assign work:Web_Development
+    ************************************
+    Name:vaibhav
+    Work:Web_Development
+    Salary:50000
+</pre>
+<!-- Program 5: Inheritance -->
+<h2>5.Write a C++ program to create a class known as "BankAccount" with methods called deposit() and withdraw(). Create a derived class called SavingsAccount that overrides the withdraw() method to prevent withdrawals if the account balance falls below one hundred.
+</h2><h3>Source code</h3>
+<pre>
+    <code>
+        #include&lt;iostream&gt;
+        using namespace std;
+        class BankAccount
+        {
+            public:
+                BankAccount()
+                {
+                    balance=0;
+                }
+                float money;
+                float balance;
+                void deposit()
+                {
+                    cout&lt;&lt;"Input amount:";
+                    cin&gt;&gt;money;
+                    balance=balance+money;
+                    cout&lt;&lt;"Deposited "&lt;&lt;money&lt;&lt;" Successfully!"&lt;&lt;endl;
+                    cout&lt;&lt;"Current balance:"&lt;&lt;balance&lt;&lt;endl;
+                }
+                void withdraw()
+                {
+                    cout&lt;&lt;"Input amount:";
+                    cin&gt;&gt;money;
+                    balance=balance-money;
+                    cout&lt;&lt;"Withdrawed "&lt;&lt;money&lt;&lt;" Successfully!"&lt;&lt;endl;
+                    cout&lt;&lt;"Current balance:"&lt;&lt;balance&lt;&lt;endl;
+                }
+        };
+        class savingsaccount:public BankAccount
+        {
+            public:
+                void withdraw()
+                {
+                    int money;
+                    cout&lt;&lt;"Input amount:";
+                    cin&gt;&gt;money;
+                    if(balance>100)
+                    {
+                        balance=balance-money;
+                        cout&lt;&lt;"Withdrawed "&lt;&lt;money&lt;&lt;" Successfully!"&lt;&lt;endl;
+                        cout&lt;&lt;"Current balance:"&lt;&lt;balance&lt;&lt;endl;
+                    }
+                    else
+                    {
+                        cout&lt;&lt;"Can't Withdraw Balance less than 100"&lt;&lt;endl;
+                        cout&lt;&lt;"Current balance:"&lt;&lt;balance&lt;&lt;endl;
+                    }
+                }
+        };
+        int main()
+        {
+            savingsaccount s1;
+            int x;
+            int end;
+            for(int i=0;end!=0;i++)
+            {
+                cout&lt;&lt;"Select Operation:-\n"<<"1.Deposit 2.Withdrawal :";
+                cin&gt;&gt;x;
+                switch(x)
+                {
+                    case 1: s1.deposit();
+                            break;
+                    case 2: s1.withdraw();
+                            break;
+                    default: cout&lt;&lt;"Invalid Operation!"&lt;&lt;endl;
+                            break;
+                }
+                cout&lt;&lt;"Enter 0 to exit or any other to continue:";
+                cin&gt;&gt;end;
+            }
+        }
+    </code>
+</pre>
+<h3>Output:</h3>
+<pre>
+    Select Operation:-
+    1.Deposit 2.Withdrawal :1
+    Input amount:1000
+    Deposited 1000 Successfully!
+    Current balance:1000
+    Enter 0 to exit or any other to continue:1
+    Select Operation:-
+    1.Deposit 2.Withdrawal :2
+    Input amount:950
+    Withdrawed 950 Successfully!
+    Current balance:50
+    Enter 0 to exit or any other to continue:1
+    Select Operation:-
+    1.Deposit 2.Withdrawal :2
+    Input amount:50
+    Can't Withdraw Balance less than 100
+    Current balance:50
+    Enter 0 to exit or any other to continue:0
+</pre>
+
+<!-- Program 6: Inheritance -->
+<h2>6. Write a C++ program to create a class called Animal with a method named move(). Create a derived class called Cheetah that overrides the move() method to run.
+</h2><h3>Source code</h3>
+<pre>
+    <code>
+        #include&lt;iostream&gt;
+        using namespace std;
+        class animal
+        {
+            public:
+                void move()
+                {
+                    cout&lt;&lt;"Animal moves."&lt;&lt;endl;
+                }
+        };
+        class cheetah:public animal
+        {
+            public:
+                void move()
+                {
+                    cout&lt;&lt;"Cheetah Runs.";
+                }
+        };
+        int main()
+        {
+            animal a1;
+            cheetah c1;
+            a1.move();
+            c1.move();
+        }
+    </code>
+</pre>
+<h3>Output:</h3>
+<pre>
+    Animal moves.
+    Cheetah Runs.
+</pre>
+
+<!-- Program 7: Inheritance -->
+<h2>7.Write a C++ program to create a class known as Person with methods called getFirstName() and getLastName(). Create a derived class called Employee that adds a new method named getEmployeeId() and overrides the getLastName() method to include the employee's job title
+</h2><h3>Source code</h3>
+<pre>
+    <code>
+        #include&lt;iostream&gt;
+        using namespace std;
+        class person
+        {
+            public:
+                char fname[20];
+                char lname[20];
+                void firstname()
+                {
+                    cout&lt;&lt;"Enter your first name:";
+                    cin&gt;&gt;fname;
+                }
+                void lastname()
+                {
+                    cout&lt;&lt;"Enter your last name:";
+                    cin&gt;&gt;lname;
+                }
+        };
+        class employee:public person
+        {
+            public:
+                int employeeid;
+                char title[50];
+                void getempid()
+                {
+                    cout&lt;&lt;"Enter employeeid:";
+                    cin&gt;&gt;employeeid;
+                }
+                void lastname()
+                {
+                    cout&lt;&lt;"Enter job title:";
+                    cin&gt;&gt;title;
+                }
+                void display()
+                {
+                    cout&lt;&lt;"***************************"&lt;&lt;endl;
+                    cout&lt;&lt;"First name:"&lt;&lt;fname&lt;&lt;endl;
+                    cout&lt;&lt;"Last name:"&lt;&lt;lname&lt;&lt;endl;
+                    cout&lt;&lt;"Employee id:"&lt;&lt;employeeid&lt;&lt;endl;
+                    cout&lt;&lt;"Job Title:"&lt;&lt;title&lt;&lt;endl;
+                }
+        };
+        int main()
+        {
+            person p1;
+            employee e1;
+            e1.firstname();
+            p1.lastname();
+            e1.lastname();
+            e1.getempid();
+            e1.display();
+        }
+    </code>
+</pre>
+<h3>Output:</h3>
+<pre>
+    Enter your first name:Rohit
+    Enter your last name:Garg
+    Enter job title:Web_Developer
+    Enter employeeid:3534
+    ***************************
+    First name:Rohit
+    Last name:
+    Employee id:3534
+    Job Title:Web_Developer
+</pre>
+
+<!-- Program 8: Inheritance -->
+<h2>8.Write a C++ program to create a class called Shape with methods called getPerimeter() and getArea(). Create a derived class called Circle that overrides the getPerimeter() and getArea() methods to calculate the area and perimeter of a circle.
+</h2>
+<h3>Source code</h3>
+<pre>
+    <code>
+        #include&lt;iostream&gt;
+        #define pi 3.14
+        using namespace std;
+        class shape
+        {
+            public:
+                float length,breadth,perimeter,area;
+                void getperimeter()
+                {
+                    cout&lt;&lt;"Enter length and breadth:";
+                    cin&gt;&gt;length&gt;&gt;breadth;
+                    perimeter=2.0*(length+breadth);
+                    cout&lt;&lt;"Perimeter:"&lt;&lt;perimeter&lt;&lt;endl;
+                }
+                void getarea()
+                {
+                    cout&lt;&lt;"Enter length and breadth:";
+                    cin&gt;&gt;length&gt;&gt;breadth;
+                    area=length*breadth;
+                    cout&lt;&lt;"Area:"&lt;&lt;area&lt;&lt;endl;
+                }
+        };
+        class circle:public shape
+        {
+            public:
+                float r;
+                void getperimeter()
+                {
+                    cout&lt;&lt;"Enter radius:";
+                    cin&gt;&gt;r;
+                    perimeter=2.0*pi*r;
+                    cout&lt;&lt;"Perimeter:"&lt;&lt;perimeter&lt;&lt;endl;
+                }
+                void getarea()
+                {
+                    cout&lt;&lt;"Enter radius:";
+                    cin&gt;&gt;r;
+                    area=pi*r*r;
+                    cout&lt;&lt;"Area:"&lt;&lt;area&lt;&lt;endl;
+                }
+        };
+        int main()
+        {
+            shape s1;
+            circle c1;
+            s1.getperimeter();
+            s1.getarea();
+            c1.getperimeter();
+            c1.getarea();
+        }
+    </code>
+</pre>
+<h3>Output:</h3>
+<pre>
+    Enter length and breadth:10 5
+    Perimeter:30
+    Enter length and breadth:10 5
+    Area:50
+    Enter radius:12
+    Perimeter:75.36
+    Enter radius:12
+    Area:452.16
+</pre>
+
+<!-- Program 9: Inheritance -->
+<h2>9. Write a C++ program to create a vehicle class hierarchy. The base class should be Vehicle, with derived classes Truck, Car and Motorcycle. Each derived class should have properties such as make, model, year, and fuel type. Implement methods for calculating fuel efficiency, distance traveled, and maximum speed
+</h2><h3>Source code</h3>
+<pre>
+    <code>
+        #include&lt;iostream&gt;
+        using namespace std;
+        
+        class vehicle {
+        public:
+            vehicle() {
+                totaldistance = 0;
+            }
+            char make[50], fueltype[50], model[50];
+            int year;
+            float totaldistance, kilometersDriven, litersUsed, fuelEfficiency, maxspd;
+        
+            virtual void fuelefficiency() {
+                cout&lt;&lt; "Enter the number of kilometers driven: ";
+                cin >> kilometersDriven;
+                cout&lt;&lt; "Enter the liters of fuel used: ";
+                cin >> litersUsed;
+                fuelEfficiency = kilometersDriven / litersUsed;
+                cout&lt;&lt; "Fuel efficiency: "&lt;&lt; fuelEfficiency&lt;&lt; " km/L"&lt;&lt; endl;
+            }
+        
+            void distancetravelled() {
+                float distance;
+                cout&lt;&lt; "Input distance: ";
+                cin >> distance;
+                totaldistance += distance;
+            }
+        
+            void maxspeed() {
+                cout&lt;&lt; "Input maximum speed: ";
+                cin >> maxspd;
+            }
+        };
+        
+        class truck : public vehicle {
+        public:
+            void get() {
+                cout&lt;&lt; "Enter material used in building of vehicle: ";
+                cin >> make;
+                cout&lt;&lt; "Enter model of the vehicle: ";
+                cin >> model;
+                cout&lt;&lt; "Enter year: ";
+                cin >> year;
+                cout&lt;&lt; "Enter fuel type: ";
+                cin >> fueltype;
+            }
+        
+            void display() {
+                cout&lt;&lt; "*************************************"&lt;&lt; endl;
+                cout&lt;&lt; "Model: "&lt;&lt; model&lt;&lt; endl;
+                cout&lt;&lt; "Material used: "&lt;&lt; make&lt;&lt; endl;
+                cout&lt;&lt; "Fuel type: "&lt;&lt; fueltype&lt;&lt; endl;
+                cout&lt;&lt; "Year: "&lt;&lt; year&lt;&lt; endl;
+                fuelefficiency(); // Calculate fuel efficiency
+                cout&lt;&lt; "Max speed: "&lt;&lt; maxspd&lt;&lt; endl;
+                cout&lt;&lt; "Distance traveled: "&lt;&lt; totaldistance&lt;&lt; endl;
+                cout&lt;&lt; "*************************************"&lt;&lt; endl;
+            }
+        };
+        
+        class car : public vehicle {
+        public:
+            void get() {
+                cout&lt;&lt; "Enter material used in building of vehicle: ";
+                cin >> make;
+                cout&lt;&lt; "Enter model of the vehicle: ";
+                cin >> model;
+                cout&lt;&lt; "Enter year: ";
+                cin >> year;
+                cout&lt;&lt; "Enter fuel type: ";
+                cin >> fueltype;
+            }
+        
+            void display() {
+                cout&lt;&lt; "*************************************"&lt;&lt; endl;
+                cout&lt;&lt; "Model: "&lt;&lt; model&lt;&lt; endl;
+                cout&lt;&lt; "Material used: "&lt;&lt; make&lt;&lt; endl;
+                cout&lt;&lt; "Fuel type: "&lt;&lt; fueltype&lt;&lt; endl;
+                cout&lt;&lt; "Year: "&lt;&lt; year&lt;&lt; endl;
+                fuelefficiency(); // Calculate fuel efficiency
+                cout&lt;&lt; "Max speed: "&lt;&lt; maxspd&lt;&lt; endl;
+                cout&lt;&lt; "Distance traveled: "&lt;&lt; totaldistance&lt;&lt; endl;
+                cout&lt;&lt; "*************************************"&lt;&lt; endl;
+            }
+        };
+        
+        class motorcycle : public vehicle {
+        public:
+            void get() {
+                cout&lt;&lt; "Enter material used in building of vehicle: ";
+                cin >> make;
+                cout&lt;&lt; "Enter model of the vehicle: ";
+                cin >> model;
+                cout&lt;&lt; "Enter year: ";
+                cin >> year;
+                cout&lt;&lt; "Enter fuel type: ";
+                cin >> fueltype;
+            }
+        
+            void display() {
+                cout&lt;&lt; "*************************************"&lt;&lt; endl;
+                cout&lt;&lt; "Model: "&lt;&lt; model&lt;&lt; endl;
+                cout&lt;&lt; "Material used: "&lt;&lt; make&lt;&lt; endl;
+                cout&lt;&lt; "Fuel type: "&lt;&lt; fueltype&lt;&lt; endl;
+                cout&lt;&lt; "Year: "&lt;&lt; year&lt;&lt; endl;
+                fuelefficiency(); // Calculate fuel efficiency
+                cout&lt;&lt; "Max speed: "&lt;&lt; maxspd&lt;&lt; endl;
+                cout&lt;&lt; "Distance traveled: "&lt;&lt; totaldistance&lt;&lt; endl;
+                cout&lt;&lt; "*************************************"&lt;&lt; endl;
+            }
+        };
+        
+        int main() {
+            truck t;
+            car c;
+            motorcycle m;
+        
+            cout&lt;&lt; "Truck details: "&lt;&lt; endl;
+            t.get();
+            t.fuelefficiency();
+            t.maxspeed();
+            t.distancetravelled();
+            t.display();
+        
+            cout&lt;&lt; "Car details: "&lt;&lt; endl;
+            c.get();
+            c.fuelefficiency();
+            c.maxspeed();
+            c.distancetravelled();
+            c.display();
+        
+            cout&lt;&lt; "Motorcycle details: "&lt;&lt; endl;
+            m.get();
+            m.fuelefficiency();
+            m.maxspeed();
+            m.distancetravelled();
+            m.display();
+        
+            return 0;
+        }
+    </code>
+</pre>
+<h3>Output:</h3>
+<pre>
+    Truck details: 
+    Enter material used in building of vehicle: Iron
+    Enter model of the vehicle: 3121
+    Enter year: 2023
+    Enter fuel type: Diesel
+    Enter the number of kilometers driven: 200
+    Enter the liters of fuel used: 10
+    Fuel efficiency: 20 km/L
+    Input maximum speed: 120
+    Input distance: 150
+    *************************************
+    Model: 3121
+    Material used: Iron
+    Fuel type: Diesel
+    Year: 2023
+    Enter the number of kilometers driven: 200
+    Enter the liters of fuel used: 10
+    Fuel efficiency: 20 km/L
+    Max speed: 120
+    Distance traveled: 150
+    *************************************
+    Car details: 
+    Enter material used in building of vehicle: Plastic
+    Enter model of the vehicle: 253
+    Enter year: 2022
+    Enter fuel type: Petrol
+    Enter the number of kilometers driven: 350
+    Enter the liters of fuel used: 15
+    Fuel efficiency: 23.3333 km/L
+    Input maximum speed: 180
+    Input distance: 100
+    *************************************
+    Model: 253
+    Material used: Plastic
+    Fuel type: Petrol
+    Year: 2022
+    Enter the number of kilometers driven: 350
+    Enter the liters of fuel used: 15
+    Fuel efficiency: 23.3333 km/L
+    Max speed: 180
+    Distance traveled: 100
+    *************************************
+    Motorcycle details: 
+    Enter material used in building of vehicle: Aluminum
+    Enter model of the vehicle: 152
+    Enter year: 2024
+    Enter fuel type: Petrol
+    Enter the number of kilometers driven: 200
+    Enter the liters of fuel used: 10
+    Fuel efficiency: 20 km/L
+    Input maximum speed: 200
+    Input distance: 200
+    *************************************
+    Model: 152
+    Material used: Aluminum
+    Fuel type: Petrol
+    Year: 2024
+    Enter the number of kilometers driven: 200
+    Enter the liters of fuel used: 10
+    Fuel efficiency: 20 km/L
+    Max speed: 200
+    Distance traveled: 200
+    *************************************
+</pre>
+</body>
+</html>
+
+    
+
+</body>
+</html>
+
+
+</body>
+</html>

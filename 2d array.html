@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++ Programs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .program {
+            width: 45%;
+            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .program h2 {
+            color: #343a40;
+        }
+        .program pre {
+            background-color: #f1f3f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .program output {
+            background-color: #f1f3f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+       <center> <h1>2D Array</h1></center>
+
+        <!-- Program 1: Two Dimensional Array -->
+        <section class="program">
+            <h1>Two Dimensional Array</h1>
+            <h2>1.enter the matrix of rows and columns entered by the user and print in matrix format</h2>
+            <h3>Source code</h3>
+            <pre><code>
+#include<iostream>
+#include<conio.h>
+
+void main() {
+    int a[3][3];
+    clrscr();
+    cout << "Enter the elements of the array: ";
+    for(int i=0; i<3; i++) {
+        for(int j=0; j<3; j++) {
+            cin >> a[i][j];
+        }
+    }
+    cout << "3x3 Matrix: " << endl;
+    for(int i=0; i<3; i++) {
+        cout << endl;
+        for(int j=0; j<3; j++) {
+            cout << a[i][j] << " ";
+        }
+    }
+    getch();
+}
+            </code></pre>
+            <h3>Output</h3>
+            <pre>
+Enter the elements of the array: 3 4 5 6 7 7 8 9 6
+3x3 Matrix:
+3 4 5
+6 7 7
+8 9 6
+            </pre>
+        </section>
+
+        <!-- Program 2: Addition of Two Matrices -->
+        <section class="program">
+            <h2>2.program to add two matrices</h2>
+            <h3>Source Code</h3>
+            <pre><code>include<iostream>
+                #include<iomanip>
+                using namespace std;
+                int main(){
+                int x,y,i,j;
+                cout<<"Enter the rows and columns : ";
+                cin>>x>>y;
+                int mata[10][10];
+                cout<<"Enter elements of Matrix A "<<endl;
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                cin>>mata[i][j];}
+                }
+                int matb[10][10];
+                cout<<"Enter elements of Matrix B"<<endl;
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                cin>>matb[i][j];}
+                }
+                cout<<"A Matrix : ";
+                for(i=0;i<x;i++){
+                cout<<endl;
+                for(j=0;j<y;j++){
+                cout<<setw(5)<<mata[i][j];
+                }
+                }
+                cout<<endl;
+                cout<<"B Matrix : ";
+                for(i=0;i<x;i++){
+                cout<<endl;
+                for(j=0;j<y;j++){
+                cout<<setw(5)<<matb[i][j];
+                }
+                }
+                cout<<endl;
+                cout<<"A+B Matrix : "<<endl;
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                cout<<setw(5)<<mata[i][j]+matb[i][j];
+                }
+                cout<<endl;}
+                return 0;}</code></pre>
+                <h2>Output</h2>
+                <pre>Enter the rows and columns : 3 3
+                    Enter elements of Matrix A
+                    3 3 3  
+                    3 3 3
+                    3 3 3
+                    Enter elements of Matrix B
+                    3 3 3
+                    3 3 3
+                    3 3 3
+                    A Matrix :
+                        3    3    3
+                        3    3    3
+                        3    3    3
+                    B Matrix :
+                        3    3    3
+                        3    3    3
+                        3    3    3
+                    A+B Matrix :
+                        6    6    6
+                        6    6    6
+                        6    6    6</pre>
+        </section>
+
+        <section class="program">
+            <h2>3. Program to Multiply Two Matrices</h2>
+            <h4>Source code</h4>
+            <pre><code>#include<iostream>
+                #include<iomanip>
+                using namespace std;
+                int main(){
+                int x,y,m,n,i,j;
+                cout<<"Enter the rows and columns for A matrix : ";
+                cin>>x>>y;
+                cout<<"Enter the rows and columns for B matrix : ";
+                cin>>m>>n;
+                if(y==m){
+                cout<<"Enter element of A Matrix : "<<endl;
+                int mata[10][10];
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                cin>>mata[i][j];}
+                }
+                cout<<"Enter element of B Matrix : "<<endl;
+                int matb[10][10];
+                for(i=0;i<m;i++){
+                for(j=0;j<n;j++){
+                cin>>matb[i][j];}
+                }
+                
+                int mul[10][10];
+                for(i=0;i<x;i++){
+                for(j=0;j<n;j++){
+                mul[i][j]=0;
+                for(int k=0;k<y;k++){
+                mul[i][j]=mul[i][j]+mata[i][k]*matb[k][j];}}
+                }
+                cout<<"A Matrix : ";
+                for(i=0;i<x;i++){
+                cout<<endl;
+                for(j=0;j<y;j++){
+                cout<<setw(5)<<mata[i][j];
+                }}
+                cout<<endl;
+                cout<<"B Matrix : "<<endl;
+                for(i=0;i<m;i++){
+                for(j=0;j<n;j++){
+                cout<<setw(5)<<matb[i][j];
+                }
+                cout<<endl;}
+                cout<<"A X B Matrix : ";
+                for(i=0;i<x;i++){
+                cout<<endl;
+                for(j=0;j<n;j++){
+                cout<<setw(5)<<mul[i][j];
+                }}}
+                else{
+                cout<<"Matrix Multiplication not applicable";}
+                return 0;}</code></pre>
+                <h2>Output</h2>
+                <pre>Enter the rows and columns for B matrix : 3 2
+                    Enter element of A Matrix :
+                    2 3 3
+                    2 3 4
+                    Enter element of B Matrix :
+                    3 4
+                    3 4 
+                    3 4
+                    A Matrix :
+                        2    3    3
+                        2    3    4
+                    B Matrix :
+                        3    4
+                        3    4
+                        3    4
+                    A X B Matrix :
+                       24   32
+                       27   36</pre>
+        </section>
+        <section class="program">
+            <h2>4. Subtractin of 2 matrix.</h2>
+            <h3>Source code</h3>
+            <pre><code>#include<iostream>
+                #include<iomanip>
+                using namespace std;
+                int main(){
+                int x,y,m,n,i,j;
+                cout<<"Enter the rows and columns for A matrix : ";
+                cin>>x>>y;
+                cout<<"Enter the rows and columns for B matrix : ";
+                cin>>m>>n;
+                if(y==m){
+                cout<<"Enter element of A Matrix : "<<endl;
+                int mata[10][10];
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                cin>>mata[i][j];}
+                }
+                cout<<"Enter element of B Matrix : "<<endl;
+                int matb[10][10];
+                for(i=0;i<m;i++){
+                for(j=0;j<n;j++){
+                cin>>matb[i][j];}
+                }
+                
+                int mul[10][10];
+                for(i=0;i<x;i++){
+                for(j=0;j<n;j++){
+                mul[i][j]=0;
+                for(int k=0;k<y;k++){
+                mul[i][j]=mul[i][j]+mata[i][k]*matb[k][j];}}
+                }
+                cout<<"A Matrix : ";
+                for(i=0;i<x;i++){
+                cout<<endl;
+                for(j=0;j<y;j++){
+                cout<<setw(5)<<mata[i][j];
+                }}
+                cout<<endl;
+                cout<<"B Matrix : "<<endl;
+                for(i=0;i<m;i++){
+                for(j=0;j<n;j++){
+                cout<<setw(5)<<matb[i][j];
+                }
+                cout<<endl;}
+                cout<<"A X B Matrix : ";
+                for(i=0;i<x;i++){
+                cout<<endl;
+                for(j=0;j<n;j++){
+                cout<<setw(5)<<mul[i][j];
+                }}}
+                else{
+                cout<<"Matrix Multiplication not applicable";}
+                return 0;}</code></pre>
+                <h2>Output</h2>
+                <pre>Enter the rows and columns for B matrix : 3 2
+                    Enter element of A Matrix :
+                    2 3 3
+                    2 3 4
+                    Enter element of B Matrix :
+                    3 4
+                    3 4 
+                    3 4
+                    A Matrix :
+                        2    3    3
+                        2    3    4
+                    B Matrix :
+                        3    4
+                        3    4
+                        3    4
+                    A X B Matrix :
+                       24   32
+                       27   36</pre>
+        </section>
+        <section class="program">
+            <h2>5. Program to determine whether two matrices are equal</h2>
+            <h3>Source code</h3>
+            <pre><code>#include<iostream>
+                #include<iomanip>
+                using namespace std;
+                int main(){
+                int x,y,i,j;
+                cout<<"Enter the rows and columns : ";
+                cin>>x>>y;
+                int mata[10][10];
+                cout<<"Enter elements of Matrix A "<<endl;
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                cin>>mata[i][j];}
+                }
+                int matb[10][10];
+                cout<<"Enter elements of Matrix B"<<endl;
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                cin>>matb[i][j];}
+                }
+                cout<<"A Matrix : ";
+                for(i=0;i<x;i++){
+                cout<<endl;
+                for(j=0;j<y;j++){
+                cout<<setw(5)<<mata[i][j];
+                }
+                }
+                cout<<endl;
+                cout<<"B Matrix : ";
+                for(i=0;i<x;i++){
+                cout<<endl;
+                for(j=0;j<y;j++){
+                cout<<setw(5)<<matb[i][j];
+                }
+                }
+                cout<<endl;
+                cout<<"A-B Matrix : "<<endl;
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                cout<<setw(5)<<mata[i][j]-matb[i][j];
+                }
+                cout<<endl;}
+                return 0;}</code></pre>
+                <h2>Output</h2>
+                <pre>Enter the rows and columns : 3 3
+                    Enter elements of Matrix A
+                    3 3 3
+                    3 3 3
+                    3 3 3
+                    Enter elements of Matrix B
+                    2 2 2
+                    2 2 2
+                    2 2 2
+                    A Matrix :
+                        3    3    3
+                        3    3    3
+                        3    3    3
+                    B Matrix :
+                        2    2    2
+                        2    2    2
+                        2    2    2
+                    A-B Matrix :
+                        1    1    1
+                        1    1    1
+                        1    1    1</pre>
+        </section>
+        <section class="program">
+            <h2>6. Program to display the lower triangular matrix</h2>
+            <h3>Source code</h3>
+            <pre><code>#include<iostream>
+                using namespace std;
+                int main(){
+                int x,y,i,j,c=0;
+                cout<<"Enter the rows and columns For Matrix: ";
+                cin>>x>>y;
+                if(x==y){
+                int mata[10][10];
+                cout<<"Enter the elements of matrix : "<<endl;
+                for(i=0;i<x;i++){
+                
+                for(j=0;j<y;j++){
+                cin>>mata[i][j];}
+                }
+                cout<<"Lower triangular matrix of the given matrix : "<<endl;
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                if (i==j){
+                c=1;
+                cout<<"  "<<mata[i][j];}
+                else if (c==0){
+                cout<<"  "<<mata[i][j];}
+                else{
+                cout<<"  "<<0;}}
+                cout<<endl;
+                c=0;}}
+                else{
+                cout<<"Not a square matrix";}
+                return 0;}</code></pre>
+                <h2>Output</h2>
+                <pre>Enter the rows and columns For Matrix: 3 3
+                    Enter the elements of matrix :
+                    3 3 3
+                    4 4 4
+                    5 6 7
+                    Lower triangular matrix of the given matrix :
+                      3  0  0
+                      4  4  0
+                      5  6  7</pre>
+        </section>
+        <section class="program">
+            <h2>7. Program to display the upper triangular matrix</h2>
+            <h3>Source code</h3>
+            <pre><code>#include<iostream>
+                using namespace std;
+                int main(){
+                int x,y,i,j,c=0;
+                cout<<"Enter the rows and columns For Matrix: ";
+                cin>>x>>y;
+                if(x==y){
+                int mata[10][10];
+                cout<<"Enter the elements of matrix : "<<endl;
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                cin>>mata[i][j];}
+                }
+                cout<<"Upper triangular matrix : "<<endl;
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                if (i==j){
+                c=1;
+                cout<<"  "<<mata[i][j];}
+                else if (c==1){
+                cout<<"  "<<mata[i][j];}
+                else{
+                cout<<"  "<<0;}}
+                cout<<endl;
+                c=0;}}
+                else{
+                cout<<"Not a square matrix";}
+                return 0;}</code></pre>
+                <h2>Output</h2>
+                <pre>Enter the rows and columns For Matrix: 3 3
+                    Enter the elements of matrix :
+                    3 4 5
+                    4 3 2
+                    4 5 6
+                    Upper triangular matrix :
+                      3  4  5
+                      0  3  2
+                      0  0  6</pre>
+        </section>
+        <section class="program">
+            <h2>8.frequency of even and odd elements of matrix</h2>
+            <h3>Source code</h3>
+            <pre><code>#include<iostream>
+                using namespace std;
+                int main(){
+                int x,y,i,j,o=0,e=0;
+                cout<<"Enter the rows and columns For Matrix: ";
+                cin>>x>>y;
+                int mata[10][10];
+                cout<<"Enter the elements of matrix : "<<endl;
+                for(i=0;i<x;i++){
+                
+                for(j=0;j<y;j++){
+                cin>>mata[i][j];}
+                }
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                   if(mata[i][j]%2==0){
+                   e++;
+                   }
+                   else{
+                   o++;}
+                }}
+                cout<<"Frequency of odd No. : "<<o<<endl;
+                cout<<"Frequency of Even No. : "<<e<<endl;
+                return 0;}</code></pre>
+                <h2>Output</h2>
+                <pre>Enter the rows and columns For Matrix: 3 3
+                    Enter the elements of matrix :
+                    3 4 5
+                    4 6 8 
+                    7 6 2
+                    Frequency of odd No. : 3
+                    Frequency of Even No. </pre>
+        </section>
+        <section class="program">
+            <h2>9.sum of rows and columns of a matrix</h2>
+            <h3>Source code</h3>
+            <pre><code>#include<iostream>
+                using namespace std;
+                int main(){
+                int x,y,i,j;
+                cout<<"Enter the rows and columns For Matrix: ";
+                cin>>x>>y;
+                int mata[10][10],r[10],c[10];
+                cout<<"Enter the elements of matrix : "<<endl;
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                cin>>mata[i][j];}
+                }
+                for(i=0;i<x;i++){
+                r[i]=0;
+                for(j=0;j<y;j++){
+                   r[i]=r[i]+mata[i][j];
+                }}
+                for(i=0;i<y;i++){
+                c[i]=0;
+                for(j=0;j<x;j++){
+                   c[i]=c[i]+mata[j][i];
+                }}
+                for(i=0;i<x;i++){
+                cout<<"Sum Of Row "<<i+1<<": "<<r[i]<<endl;}
+                for(i=0;i<y;i++){
+                cout<<"Sum Of Column "<<i+1<<": "<<c[i]<<endl;}
+                return 0;}</code></pre>
+                <h2>Output</h2>
+                <pre>Enter the rows and columns For Matrix: 2 2
+                    Enter the elements of matrix :
+                    2 3 
+                    4 5
+                    Sum Of Row 1: 5
+                    Sum Of Row 2: 9
+                    Sum Of Column 1: 6
+                    Sum Of Column 2: 8</pre>
+
+        </section>
+        <section class="program">
+            <h2>10. Program to determine whether a given matrix is an identity matrix</h2>
+            <h3>Source code</h3>
+            <pre><code>#include<iostream>
+                using namespace std;
+                int main(){
+                int x,y,i,j,c=0;
+                cout<<"Enter the rows and columns For Matrix: ";
+                cin>>x>>y;
+                if(x==y){
+                int mat[10][10];
+                cout<<"Enter the elements of matrix : "<<endl;
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                cin>>mat[i][j];}
+                }
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                if(i==j){
+                if(mat[i][j]!=1){
+                c=1;}
+                }
+                }}
+                if(c==1){
+                cout<<"Not an identity matrix ";}
+                else{
+                cout<<"Its an Identity matrix ";} }
+                else{
+                cout<<"Matrix should be square ";}
+                return 0;}</code></pre>
+                <h2>Output</h2>
+                <pre>Enter the rows and columns For Matrix: 3 3
+                    Enter the elements of matrix :
+                    1 0 0
+                    0 1 0
+                    0 0 1
+                    Its an Identity matrix</pre>
+        </section>
+        <section class="program">
+            <h2>11. Program to Transpose matrix</h2>
+            <h3>Source code</h3>
+            <pre><code>#include<iostream>
+                using namespace std;
+                int main(){
+                int x,y,i,j;
+                cout<<"Enter the rows and columns For Matrix: ";
+                cin>>x>>y;
+                int mat[10][10];
+                cout<<"Enter the elements of matrix : "<<endl;
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                cin>>mat[i][j];}
+                }
+                cout<<"Matrix : "<<endl;
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                cout<<mat[i][j]<<" ";
+                }
+                cout<<endl;
+                }
+                cout<<"Transpose of the matrix : "<<endl;
+                for(i=0;i<y;i++){
+                for(j=0;j<x;j++){
+                cout<<mat[j][i]<<" ";}
+                cout<<endl;}
+                return 0;}</code></pre>
+                <h2>Output</h2>
+                <pre>Enter the rows and columns For Matrix: 3 2
+                    Enter the elements of matrix :
+                    2 2
+                    2 4
+                    5 3
+                    Matrix :
+                    2 2
+                    2 4
+                    5 3
+                    Transpose of the matrix :
+                    2 2 5
+                    2 4 3</pre>
+        </section>
+        <section class="program">
+            <h2>12. Program to determine whether a given matrix is a sparse matrix</h2>
+            <h3>Source code</h3>
+            <pre><code>#include<iostream>
+                using namespace std;
+                int main(){
+                int x,y,i,j,c=0;
+                cout<<"Enter the rows and columns For Matrix: ";
+                cin>>x>>y;
+                int mat[10][10];
+                cout<<"Enter the elements of matrix : "<<endl;
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                cin>>mat[i][j];}
+                }
+                for(i=0;i<x;i++){
+                for(j=0;j<y;j++){
+                if(mat[i][j]==0){
+                c++;}}}
+                if(c>((x*y)/2)){
+                cout<<"Sparse Matrix ";}
+                else{
+                cout<<"Not a Sparse Matrix ";}
+                return 0;}</code></pre>
+                <h2>Output</h2>
+                <pre>Enter the rows and columns For Matrix: 3 3
+                    Enter the elements of matrix :
+                    0 0 2
+                    2 2 0
+                    0 0 0
+                    Sparse Matrix</pre>
+        </section>
+
+        <!-- Repeat the above structure for the remaining programs -->
+
+    </div>
+</body>
+</html>
